@@ -45,3 +45,10 @@ var Tanur = new Stove();
 Nvidia.heating();
 Tanur.heating();
 ///
+
+/// toggle booleans
+var boolean1 = true;
+boolean1 = !boolean1;
+console.log(boolean1);
+
+
