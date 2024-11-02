@@ -1,6 +1,6 @@
-function nanana (number=10){
-    return number*number;
+const fruit = {
+size:'small',
+color:'green',
+cost:100
 }
-
-console.log(nanana(20));
-
+console.log(Object.keys(fruit));
