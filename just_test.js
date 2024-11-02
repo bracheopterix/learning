@@ -1,6 +1,6 @@
-console.log('string');
+function nanana (number=10){
+    return number*number;
+}
 
-let x = fd(a);
-let y = g(x);
+console.log(nanana(20));
 
-let y2 = g(fd(a));
