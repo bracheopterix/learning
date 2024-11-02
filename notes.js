@@ -51,4 +51,14 @@ var boolean1 = true;
 boolean1 = !boolean1;
 console.log(boolean1);
 
+//randomly chooses one or another option to write in
+var dynamicKey;
+  if(Math.random() > 0.5) {
+    dynamicKey = "speed";
+   }else{
+     dynamicKey = "color";
+   }
 
+
+// output random parameter from the object in the example higher
+console.log(drone[dynamicKey]);
