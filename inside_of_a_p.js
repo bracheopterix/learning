@@ -1,3 +1,4 @@
+/*
 accessKey: ""
 ​​
 accessKeyLabel: ""
@@ -423,3 +424,5 @@ textContent: " 8"
 title: ""
 ​​
 translate: true
+
+*/
