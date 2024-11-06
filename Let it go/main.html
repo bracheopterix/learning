@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="violet.css">
+        <script type="text/javascript" src="history.js"></script>
+    </head>
+
+    <body>
+        <div id="center">
+            <div id="history-list">
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+                <p id="text-line"></p>
+            </div>
+            <div id="input-box">
+                <form onsubmit="return textEnter()">
+                    <input id="input-text" type="text" value="Enter text here" onclick="onClick()">
+                    <input type="submit" hidden />
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>
+
+
+
+<!-- take the history-list outside and make it hover static -->
+ <!-- then every new line would push previous line up until it vanishes from the page -->
+  <!-- every step a line looses 10% of it`s opacity -->
+
+
+  <!-- maybe just let be ~10 p, that would exchange their content. But idk. -->

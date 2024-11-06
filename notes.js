@@ -62,3 +62,19 @@ var dynamicKey;
 
 // output random parameter from the object in the example higher
 console.log(drone[dynamicKey]);
+
+
+//spread operator ...
+const array = ['one','two','kettle'];
+console.log(array[0],array[1],array[2]);
+console.log(...array);
+
+
+//using de-construction and rest to manipulate an array values through it`s first value
+
+function addToTaxPrices (taxRate, ...itemsBought) {
+    return itemsBought.map(item => taxRate*item);
+    }
+
+    let shoppingCart = addToTaxPrices(1.1, 46, 89, 35, 79)
+    console.log(shoppingCart);
