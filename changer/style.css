@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(48, 46, 46);
+}
+
+#center {
+    margin: auto;
+    background-color: aquamarine;
+    width: fit-content;
+    height: fit-content;
+    display: block;
+}
+
+#avatar {
+    width: 50px;
+    height: 80px;
+    padding: 20px;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+#input-window {
+    display: block;
+    width: 200px;
+    padding: 2px;
+    background-color:aliceblue;
+}
+
+#output-window {
+    display: block;
+    width: 200px;
+    padding: 2px;
+    background-color: antiquewhite;
+
+}
+
+#change-button {
+    display: block;
+    margin: auto;
+    margin: 20px auto 20px auto;
+}
