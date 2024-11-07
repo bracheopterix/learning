@@ -3,7 +3,6 @@ function getInputWindow() {
     return document.getElementById('input-window');
 }
 
-
 function getOutputWindow() {
     return document.getElementById('output-window');
 }
@@ -11,18 +10,14 @@ function getOutputWindow() {
 
 function onClick() {
     const inputWindow = getInputWindow()
+    if (inputWindow.value == 'Enter text here'){
     inputWindow.value = ' ';
-}
-
-
-
-
-function change() {
-    let inputWindow = getInputWindow()
-    let outputWindow = getOutputWindow()
-    let freeChair = inputWindow.id;
-    inputWindow.id = outputWindow.id;
-    outputWindow.id = freeChair;
+    }
+    else if (inputWindow.value == ''|| inputWindow.value == ' ' ) {
+        inputWindow.value = 'Enter text here';
+        
+    } 
+    else{};
 }
 
 
@@ -31,6 +26,9 @@ function textEnter() {
     const outputWindow = getOutputWindow()
     let text = "You shoud have written something...";
     text = inputWindow.value;
-    // const parse = JSON.parse(text);
-    // outputWindow.value = parse;
+    let jsonString = JSON.stringify(text);
+    outputWindow.value = jsonString;
+    let avatar = document.getElementById('avatar');
+    avatar.background-image == 'url("./avatars/ok.png")';
+
 }
