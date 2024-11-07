@@ -7,7 +7,7 @@ body {
     width: fit-content;
     height: fit-content;
     display: block;
-    padding: 100px;
+    padding-top: 10%;
 }
 
 #avatar {
@@ -17,22 +17,24 @@ body {
     margin: auto;
     display: block;
     text-align: center;
-    background-image: url("./avatars/start.png");
-    background-repeat: no-repeat;
-    background-size: 100px;
 }
+
+#form {
+    display: block;
+    margin: auto;
+    width: 200px;
+    padding: 2px;
+}
+
 
 #input-window {
-    display: block;
-    width: 200px;
-    padding: 2px;
-    background-color:aliceblue;
+    background-color: aliceblue;
 }
 
+
+
+
 #output-window {
-    display: block;
-    width: 200px;
-    padding: 2px;
     background-color: antiquewhite;
 
 }

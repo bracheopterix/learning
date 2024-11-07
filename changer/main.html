@@ -7,17 +7,15 @@
 </head>
 
 <body>
-<div id="center">
-    <div id="avatar">1 </div>
-    <form onsubmit="return textEnter()">
+    <div id="center">
+        <img src="./avatars/ok.png" id="avatar">
+    </div>
+    <form id="form" onsubmit="textEnter(event)">
         <input id="input-window" type="text" value="Enter text here" onclick="onClick()">
         <input type="submit" hidden />
-        <button id="change-button" onclick="onClick()">3</button>
-    <form>
-        <input id="output-window" type="text" value="Get text here" onclick="onClick()">
-        <input type="submit" hidden />
-</div>
+        <button id="change-button" onclick="onClick()">=></button>
+        <div id="output-window">Get text here</div>
+    </form>
 </body>
 
 </html>
-

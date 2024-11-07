@@ -1,4 +1,6 @@
 
+
+
 function getInputWindow() {
     return document.getElementById('input-window');
 }
@@ -9,26 +11,29 @@ function getOutputWindow() {
 
 
 function onClick() {
-    const inputWindow = getInputWindow()
-    if (inputWindow.value == 'Enter text here'){
-    inputWindow.value = ' ';
+    const inputWindow = getInputWindow();
+    if (inputWindow.value == 'Enter text here') {
+        inputWindow.value = ' ';
     }
-    else if (inputWindow.value == ''|| inputWindow.value == ' ' ) {
+    else if (inputWindow.value == '' || inputWindow.value == ' ') {
         inputWindow.value = 'Enter text here';
-        
-    } 
-    else{};
+    }
+    else { };
+    avatar.src = "./avatars/start.png"
+
 }
 
 
-function textEnter() {
+function textEnter(event) {
     const inputWindow = getInputWindow()
     const outputWindow = getOutputWindow()
-    let text = "You shoud have written something...";
+    let text = "text";
     text = inputWindow.value;
-    let jsonString = JSON.stringify(text);
-    outputWindow.value = jsonString;
+    console.log(text);
+    let newText = JSON.stringify(text);
+    console.log(newText);
+    outputWindow.innerText = newText;
     let avatar = document.getElementById('avatar');
-    avatar.background-image == 'url("./avatars/ok.png")';
-
+    avatar.src = "./avatars/ok.png"
+    event.preventDefault();
 }
