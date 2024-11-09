@@ -11,6 +11,16 @@ we feed two array to FOR and iterate by index
 
 
 function reverseArr(array) {
-const result = reverse(array);
-return result;
+    const result = array.reverse();
+    return result;
+    // expecting result [1,2,3] to [3,2,1]
 }
+
+const arr = [1, 2, 3];
+reverseArr(arr);
+
+module.exports = {
+    reverseArr
+}
+
+
