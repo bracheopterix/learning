@@ -16,23 +16,23 @@ function reverseArr(array) {
     // expecting changing item order: [1,2,3] to [3,2,1]
 }
 
+
 function compareArr(arr1, arr2) {
-    let arrLength = arr1.length;
     let counter = 0;
-    for (let i = 0; i < arr1; i++) {
+    for (let i = 0; i < arr1.length; i++) {
         if (arr1[i] == arr2[i]) {
             counter = counter + 1;
-        };
-        else {return false};
-        
-        if (arrLength == counter) {
-            return true;
         }
-        else {
-            return false;
-        }
+        else { }
+    }
+    if (counter == arr1.length) {
+        return true;
+    }
+    else {
+        return false;
     }
 }
+
 
 
 // export
@@ -43,9 +43,8 @@ module.exports = {
 
 // app
 
-const arr = [1, 2, 3];
-reverseArr(arr);
-compareArr(arr,arr);
+
+
 
 
 
