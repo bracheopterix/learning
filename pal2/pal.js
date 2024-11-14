@@ -4,7 +4,7 @@
 
     Steps:
 o   so we take arraylength/2 - its ok if it not even, the last char would be just an axis of symmetry
-o   so we break an array on two halves (minus the axis-char) 
+o   so we break an array on two halfes (minus the axis-char) 
 0   we reverse the second array  
 0   we feed two array to FOR and iterate by index
 
@@ -26,6 +26,7 @@ function checkEven(array) {
 
 
 
+
 module.exports = {
-    checkEven,
+    checkEven
 }

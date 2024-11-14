@@ -7,5 +7,6 @@ const arr3 = ['i', 'a', 'z', 3, 2, 1]
 
 test('checkEven - if the array have even number of letters', () => {
     expect(checkEven(arr1)).toBe(true);
+    expect(checkEven(arr1.pop())).toBe(false);
     console.log(arr1,checkEven(arr1));
 })
