@@ -24,7 +24,9 @@ function checkEven(array) {
     return result;
 }
 
-
+function cutArray {
+    
+}
 
 
 module.exports = {
