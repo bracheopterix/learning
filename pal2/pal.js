@@ -13,13 +13,19 @@ o   so we break an array on two halves (minus the axis-char)
 
 // functions
 
-function checkEven (array) {
+function checkEven(array) {
     let result;
-if (array.length%2==0){
-result = true;
+    if (array.length % 2 == 0) {
+        result = true;
+    }
+    else {
+        result = false;
+    }
+    return result;
 }
-else {
-    result = false;
-}
-return result;
+
+
+
+module.exports = {
+    checkEven,
 }
