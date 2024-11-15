@@ -24,11 +24,32 @@ function checkEven(array) {
     return result;
 }
 
-function cutArray {
-    
+function cutArray(array) {
+    let half = Math.floor(array.length / 2);
+    console.log(half);
+    const subArr1 = array.splice(0, half)
+    console.log(array);
+    let subArr2=array;
+    if (checkEven(array) !== true) {
+        subArr2.shift();
+    }
+    else {
+    }
+    const result = [subArr1, subArr2];
+    console.log(result);
+    return result;
+
 }
+
+cutArray([1, 2, 3, 'a', 'i']);
+cutArray([1, 2, 3, 'z', 'a', 'i']);
+
+// var leftSide = arrayName.splice(0, Math.floor(arrayName.length / 2));
+
+// cutArray([1, 2, 3, 4, 5]);
 
 
 module.exports = {
-    checkEven
+    checkEven,
+    cutArray
 }
