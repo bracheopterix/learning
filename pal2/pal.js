@@ -25,23 +25,30 @@ function checkEven(array) {
 }
 
 function cutArray(array) {
+    const clonedArray = array;
     let half = Math.floor(array.length / 2);
-    console.log(half);
-    const subArr1 = array.splice(0, half)
-    console.log(array);
-    let subArr2=array;
-    if (checkEven(array) !== true) {
+    // console.log(half);
+    const subArr1 = clonedArray.splice(0, half)
+    // console.log(clonedArray);
+    let subArr2 = clonedArray;    
+    if (checkEven(array) == true) {
+        console.log("true");
         subArr2.shift();
     }
     else {
+        console.log("false");
     }
     const result = [subArr1, subArr2];
-    console.log(result);
+    // console.log(result);
     return result;
 
 }
 
+
+console.log(checkEven([1, 2, 3, 'a', 'i']));
 cutArray([1, 2, 3, 'a', 'i']);
+
+console.log(checkEven([1, 2, 3, 'z', 'a', 'i']));
 cutArray([1, 2, 3, 'z', 'a', 'i']);
 
 // var leftSide = arrayName.splice(0, Math.floor(arrayName.length / 2));
