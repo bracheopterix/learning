@@ -63,6 +63,14 @@ box-shadow: 2px 2px 4px rgb(200, 77, 77);
     /* left: -20px; */
     z-index: 1;
     box-shadow: 4px 0px 2px rgb(200, 77, 77);
-
-
 }
+
+#progress-line:active {
+    animation-name: example;
+    animation-duration: 4s;    
+}
+
+@keyframes example {
+    /* from {background-color: red;} */
+    to {width: 450px;}
+  }
