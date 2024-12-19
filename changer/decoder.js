@@ -23,8 +23,9 @@ function textEnter(event) {
     const outputWindow = getOutputWindow()
     let text = "text";
     text = inputWindow.value;
-    let newText = JSON.stringify(text);
-    outputWindow.innerText = newText;
+    const reverse = text.split('').reverse().join('');
+    console.log(text,reverse);
+    outputWindow.innerText = reverse;
     let avatar = document.getElementById('avatar');
     avatar.src = "./avatars/ok.png"
     event.preventDefault();

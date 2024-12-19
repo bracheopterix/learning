@@ -51,8 +51,8 @@
 
 
 function calcTaxes(price){
-    // const newPrice=price+(price*0.2);
-    let newPrice = price+price;
+    const newPrice=price+(price*0.2);
+    // let newPrice = price+price;
     console.log(newPrice);
     return newPrice;
 }
