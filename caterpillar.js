@@ -1,35 +1,23 @@
 // TYPES of input
 // T<number|string|boolean|null|undefined>
 // T[]
-
-type MultyValue = number | string | boolean | null | undefined | object;
-type SegmentType = {
-    value: MultyValue,
-    next: SegmentType
-};
-
-class Segment {
-    value: MultyValue;
-    next: SegmentType;
-    constructor(value: MultyValue, next: SegmentType) {
+var Segment = /** @class */ (function () {
+    function Segment(value, next) {
         this.value = value;
         this.next = next;
     }
-}
-
-class Caterpillar {
-    // I am a linked list!
-    head: SegmentType;
-    tail: SegmentType;
-
-    pushFront(n: MultyValue) {
-
+    return Segment;
+}());
+var Caterpillar = /** @class */ (function () {
+    function Caterpillar() {
+    }
+    Caterpillar.prototype.pushFront = function (n) {
         if (!this.head) {
             // no head? - this is new head!
             this.head = new Segment(n, undefined);
         }
         else {
-            const newElement = new Segment(n, this.head);
+            var newElement = new Segment(n, this.head);
             if (!this.head.next) {
                 // no tail and now two segments? old head is noe new tail!
                 this.tail = this.head;
@@ -41,9 +29,8 @@ class Caterpillar {
         }
         return console.log('added', n, 'to the head');
     };
-
-    pushBack(n: MultyValue) {
-
+    ;
+    Caterpillar.prototype.pushBack = function (n) {
         if (!this.head) {
             // no head? - this is new head!
             this.head = new Segment(n, undefined);
@@ -51,22 +38,20 @@ class Caterpillar {
         }
         else {
             // else - create new butt-segment,make it next to thetail and replant a tail pointer
-            const newElement = new Segment(n, undefined);
+            var newElement = new Segment(n, undefined);
             this.tail.next = newElement;
             this.tail = newElement;
         }
         return console.log('added', n, 'to the tail');
-
     };
-
-
-    insert(n: MultyValue, id: number) {
+    ;
+    Caterpillar.prototype.insert = function (n, id) {
         try {
             if (!id) {
-                throw new Error('please, .insert(value,id)')
+                throw new Error('please, .insert(value,id)');
             }
-            let element: SegmentType = this.head;
-            let counter: number = 0;
+            var element = this.head;
+            var counter = 0;
             while (element && counter < id - 1) {
                 element = element.next;
                 if (!element) {
@@ -74,40 +59,31 @@ class Caterpillar {
                 }
                 counter += 1;
             }
-            const newElement = new Segment(n, element.next)
+            var newElement = new Segment(n, element.next);
             element.next = newElement;
             return console.log('inserted', n, 'to the id', id);
-
-
-        } catch (error) {
+        }
+        catch (error) {
             console.log('canselled insert', n, id, '-', error.message);
         }
-    }
-
-
-    print() {
+    };
+    Caterpillar.prototype.print = function () {
         console.log('catepillar:');
-        let element: SegmentType = this.head;
-        let counter: number = 0;
+        var element = this.head;
+        var counter = 0;
         while (element) {
             console.log(element.value);
             element = element.next;
             counter += 1;
-        };
+        }
+        ;
     };
-
-};
-
+    ;
+    return Caterpillar;
+}());
+;
 // without length
-
-
-
-
-
-
-
-
-let catepillar = new Caterpillar();
+var catepillar = new Caterpillar();
 catepillar.pushBack(5);
 catepillar.pushBack(6);
 catepillar.pushBack(7);
@@ -120,12 +96,7 @@ catepillar.insert(0, 30);
 // catepillar.insert(5);
 // catepillar.insert([5, 7], 6);
 // catepillar.insert({ 'a': 5, 'b': 7 }, 7);
-
 // catepillar.pushFront();
 // catepillar.pushBack(null);
 // catepillar.pushFront(catepillar.pushBack(5)); ///? TYPES
-
-
-
-
 catepillar.print();
