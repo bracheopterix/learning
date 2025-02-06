@@ -1,14 +1,14 @@
 class Catepillar {
-
+    // I am a linked list!
 
     pushFront(n) {
         if (!this.head) {
             // no head? - this is new head!
             this.head = new Segment(n, undefined);
         }
-        else{
-            const newElement = new Segment(n,this.head);
-            if(!this.head.next){
+        else {
+            const newElement = new Segment(n, this.head);
+            if (!this.head.next) {
                 // no tail and now two segments? old head is noe new tail!
                 this.tail = this.head;
                 this.head.next = this.tail;
@@ -36,11 +36,36 @@ class Catepillar {
         }
     };
 
+
+    insert(n, id) {
+        try {
+            if (!id) {
+                throw new Error('please, .insert(value,id)')
+            }
+            let element = this.head;
+            let counter = 0;
+            while (element && counter < id - 1) {
+                element = element.next;
+                if (!element) {
+                    throw new Error('please, use existing id');
+                }
+                counter += 1;
+            }
+            const newElement = new Segment(n, element.next)
+            element.next = newElement;
+
+
+        } catch (error) {
+            console.log('insert command', n, id, 'cancelled -', error.message);
+        }
+    }
+
+
     print() {
         let element = this.head;
         let counter = 0;
         while (element) {
-            console.log('value',element.value,'element',element);
+            console.log(element.value);
             element = element.next;
             counter += 1;
         };
@@ -69,6 +94,11 @@ catepillar.pushFront(4);
 catepillar.pushFront(3);
 catepillar.pushFront(2);
 catepillar.pushFront(1);
+catepillar.insert(0, 3);
+catepillar.insert(0, 30);
+catepillar.insert(5);
+
+
 
 
 catepillar.print();
