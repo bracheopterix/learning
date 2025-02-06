@@ -229,11 +229,11 @@ const wordsCounter = {
 
 for (let item of textArray) {
     let word=item[0];
-    if (wordsCounter[word]>0){
-        wordsCounter[word]=wordsCounter[word]+1;
+    if (wordsCounter[word]>0){    // create new or find existing key = (word's value) and if there are more than 0...
+        wordsCounter[word]=wordsCounter[word]+1;  // update it's value (counter) +1
     }
     else{
-    wordsCounter[word]=1;
+    wordsCounter[word]=1; // set starting value (counter) = 1
     }
 }
 
