@@ -68,7 +68,7 @@ var Caterpillar = /** @class */ (function () {
         }
     };
     Caterpillar.prototype.print = function () {
-        console.log('catepillar:');
+        console.log('caterpillar:');
         var element = this.head;
         var counter = 0;
         while (element) {
@@ -83,20 +83,21 @@ var Caterpillar = /** @class */ (function () {
 }());
 ;
 // without length
-var catepillar = new Caterpillar();
-catepillar.pushBack(5);
-catepillar.pushBack(6);
-catepillar.pushBack(7);
-catepillar.pushFront(4);
-catepillar.pushFront(3);
-catepillar.pushFront(2);
-catepillar.pushFront(1);
-catepillar.insert(0, 3);
-catepillar.insert(0, 30);
-// catepillar.insert(5);
-// catepillar.insert([5, 7], 6);
-// catepillar.insert({ 'a': 5, 'b': 7 }, 7);
-// catepillar.pushFront();
-// catepillar.pushBack(null);
-// catepillar.pushFront(catepillar.pushBack(5)); ///? TYPES
-catepillar.print();
+var caterpillar = new Caterpillar();
+caterpillar.pushBack(5);
+caterpillar.pushBack(6);
+caterpillar.pushBack(7);
+caterpillar.pushFront(4);
+caterpillar.pushFront(3);
+caterpillar.pushFront(2);
+caterpillar.pushFront(1);
+caterpillar.insert(0, 3);
+caterpillar.insert(0, 30);
+// caterpillar.insert(5);
+// caterpillar.insert([5, 7], 6);
+// caterpillar.insert({ 'a': 5, 'b': 7 }, 7);
+// caterpillar.pushFront();
+// caterpillar.pushBack(null);
+// caterpillar.pushFront(catepillar.pushBack(5)); ///? TYPES
+caterpillar.print();
+/// nanannaa

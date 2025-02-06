@@ -2,11 +2,27 @@
 // T<number|string|boolean|null|undefined>
 // T[]
 
+type MultyValue = number | string | boolean | null | undefined | object;
+type SegmentType = {
+    value: MultyValue,
+    next: SegmentType
+};
 
-class Catepillar {
+class Segment {
+    value: MultyValue;
+    next: SegmentType;
+    constructor(value: MultyValue, next: SegmentType) {
+        this.value = value;
+        this.next = next;
+    }
+}
+
+class Caterpillar {
     // I am a linked list!
+    head: SegmentType;
+    tail: SegmentType;
 
-    pushFront(n) {
+    pushFront(n: MultyValue) {
 
         if (!this.head) {
             // no head? - this is new head!
@@ -23,10 +39,10 @@ class Catepillar {
             newElement.next = this.head;
             this.head = newElement;
         }
-        return console.log('added',n,'to the head');
+        return console.log('added', n, 'to the head');
     };
 
-    pushBack(n) {
+    pushBack(n: MultyValue) {
 
         if (!this.head) {
             // no head? - this is new head!
@@ -39,18 +55,18 @@ class Catepillar {
             this.tail.next = newElement;
             this.tail = newElement;
         }
-        return console.log('added',n,'to the tail');
+        return console.log('added', n, 'to the tail');
 
     };
 
 
-    insert(n, id) {
+    insert(n: MultyValue, id: number) {
         try {
             if (!id) {
                 throw new Error('please, .insert(value,id)')
             }
-            let element = this.head;
-            let counter = 0;
+            let element: SegmentType = this.head;
+            let counter: number = 0;
             while (element && counter < id - 1) {
                 element = element.next;
                 if (!element) {
@@ -60,7 +76,7 @@ class Catepillar {
             }
             const newElement = new Segment(n, element.next)
             element.next = newElement;
-            return console.log('inserted',n,'to the id',id);
+            return console.log('inserted', n, 'to the id', id);
 
 
         } catch (error) {
@@ -70,9 +86,9 @@ class Catepillar {
 
 
     print() {
-        console.log('catepillar:');
-        let element = this.head;
-        let counter = 0;
+        console.log('caterpillar:');
+        let element: SegmentType = this.head;
+        let counter: number = 0;
         while (element) {
             console.log(element.value);
             element = element.next;
@@ -86,35 +102,32 @@ class Catepillar {
 
 
 
-class Segment {
-    constructor(value, next) {
-        this.value = value;
-        this.next = next;
-    }
-}
 
 
 
 
-let catepillar = new Catepillar();
-catepillar.pushBack(5);
-catepillar.pushBack(6);
-catepillar.pushBack(7);
-catepillar.pushFront(4);
-catepillar.pushFront(3);
-catepillar.pushFront(2);
-catepillar.pushFront(1);
-catepillar.insert(0, 3);
-catepillar.insert(0, 30);
-catepillar.insert(5);
-catepillar.insert([5,7],6);
-catepillar.insert({'a':5,'b':7},7);
 
-catepillar.pushFront();
-catepillar.pushBack(null);
-catepillar.pushFront(catepillar.pushBack(5)); ///? TYPES
+let caterpillar = new Caterpillar();
+caterpillar.pushBack(5);
+caterpillar.pushBack(6);
+caterpillar.pushBack(7);
+caterpillar.pushFront(4);
+caterpillar.pushFront(3);
+caterpillar.pushFront(2);
+caterpillar.pushFront(1);
+caterpillar.insert(0, 3);
+caterpillar.insert(0, 30);
+// caterpillar.insert(5);
+// caterpillar.insert([5, 7], 6);
+// caterpillar.insert({ 'a': 5, 'b': 7 }, 7);
+
+// caterpillar.pushFront();
+// caterpillar.pushBack(null);
+// caterpillar.pushFront(catepillar.pushBack(5)); ///? TYPES
 
 
 
 
-catepillar.print();
+caterpillar.print();
+
+/// nanannaa
