@@ -1,8 +1,3 @@
-// TYPES of input
-// T<number|string|boolean|null|undefined>
-// T[]
-
-
 class Catepillar {
     // I am a linked list!
 
@@ -94,7 +89,9 @@ class Segment {
 }
 
 
-
+// TYPES of input
+// T<number|string|boolean|null|undefined>
+// T[]
 
 let catepillar = new Catepillar();
 catepillar.pushBack(5);
