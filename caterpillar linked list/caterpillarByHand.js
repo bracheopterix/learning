@@ -97,24 +97,24 @@ class Segment {
 
 
 let caterpillar = new Catepillar();
-caterpillar.pushBack(5);
-caterpillar.pushBack(6);
-caterpillar.pushBack(7);
-caterpillar.pushFront(4);
-caterpillar.pushFront(3);
-caterpillar.pushFront(2);
-caterpillar.pushFront(1);
-caterpillar.insert(0, 3);
-caterpillar.insert(0, 30);
-caterpillar.insert(5);
-caterpillar.insert([5,7],6);
-caterpillar.insert({'a':5,'b':7},7);
+CatP.pushBack(5);
+CatP.pushBack(6);
+CatP.pushBack(7);
+CatP.pushFront(4);
+CatP.pushFront(3);
+CatP.pushFront(2);
+CatP.pushFront(1);
+CatP.insert(0, 3);
+CatP.insert(0, 30);
+CatP.insert(5);
+CatP.insert([5,7],6);
+CatP.insert({'a':5,'b':7},7);
 
-caterpillar.pushFront();
-caterpillar.pushBack(null);
-caterpillar.pushFront(caterpillar.pushBack(5)); ///? TYPES
-
-
+CatP.pushFront();
+CatP.pushBack(null);
+CatP.pushFront(CatP.pushBack(5)); ///? TYPES
 
 
-caterpillar.print();
+
+
+CatP.print();

@@ -2,16 +2,18 @@
 // T<number|string|boolean|null|undefined>
 // T[]
 
-type MultyValue = number | string | boolean | null | undefined | object;
+//generic type
+
+type MultyValue = number | string | boolean | null | undefined | object | MultyValue[];
 type SegmentType = {
     value: MultyValue,
-    next: SegmentType
+    next: SegmentType | undefined, // and maybe here too undefined
 };
 
 class Segment {
     value: MultyValue;
-    next: SegmentType;
-    constructor(value: MultyValue, next: SegmentType) {
+    next: SegmentType | undefined;   // here undefined hneeds to be an option
+    constructor(value: MultyValue, next: SegmentType | undefined) {
         this.value = value;
         this.next = next;
     }
@@ -19,8 +21,8 @@ class Segment {
 
 class Caterpillar {
     // I am a linked list!
-    head: SegmentType;
-    tail: SegmentType;
+    head?: SegmentType;
+    tail?: SegmentType;
 
     pushFront(n: MultyValue) {
 
@@ -52,34 +54,52 @@ class Caterpillar {
         else {
             // else - create new butt-segment,make it next to thetail and replant a tail pointer
             const newElement = new Segment(n, undefined);
-            this.tail.next = newElement;
-            this.tail = newElement;
+            if (this.tail) {
+                this.tail.next = newElement;
+                this.tail = newElement;
+            } else {
+                this.tail = newElement;
+            }
+
         }
         return console.log('added', n, 'to the tail');
 
     };
 
 
-    insert(n: MultyValue, id: number) {
+    insert(n: MultyValue, id: number) {  // insert 0 = pushFront, insert id=length =pushBack
         try {
+            if (!this.head) {
+                throw new Error('caterpillar is empty');
+            }
             if (!id) {
                 throw new Error('please, .insert(value,id)')
             }
-            let element: SegmentType = this.head;
+            if (id === 0) {
+                console.log('inserted', n, 'as a head');
+                return this.pushFront(n);
+            }
+
+            let element = this.head;
             let counter: number = 0;
             while (element && counter < id - 1) {
+                if (!element.next) {
+                    console.log('inserted', n, 'as a tail');
+                    return this.pushBack(n);
+                }
                 element = element.next;
                 if (!element) {
                     throw new Error('please, use existing id');
                 }
                 counter += 1;
             }
+
             const newElement = new Segment(n, element.next)
             element.next = newElement;
             return console.log('inserted', n, 'to the id', id);
 
 
-        } catch (error) {
+        } catch (error: any) {
             console.log('canselled insert', n, id, '-', error.message);
         }
     }
@@ -87,7 +107,7 @@ class Caterpillar {
 
     print() {
         console.log('caterpillar:');
-        let element: SegmentType = this.head;
+        let element = this.head;
         let counter: number = 0;
         while (element) {
             console.log(element.value);
@@ -107,27 +127,27 @@ class Caterpillar {
 
 
 
-let caterpillar = new Caterpillar();
-caterpillar.pushBack(5);
-caterpillar.pushBack(6);
-caterpillar.pushBack(7);
-caterpillar.pushFront(4);
-caterpillar.pushFront(3);
-caterpillar.pushFront(2);
-caterpillar.pushFront(1);
-caterpillar.insert(0, 3);
-caterpillar.insert(0, 30);
-// caterpillar.insert(5);
-// caterpillar.insert([5, 7], 6);
-// caterpillar.insert({ 'a': 5, 'b': 7 }, 7);
+let CatP = new Caterpillar();
+CatP.pushBack(5);
+CatP.pushBack(6);
+CatP.pushBack(7);
+CatP.pushFront(4);
+CatP.pushFront(3);
+CatP.pushFront(2);
+CatP.pushFront(1);
+CatP.insert(0, 3);
+CatP.insert(0, 30);
+// CatP.insert(5);
+// CatP.insert([5, 7], 6);
+// CatP.insert({ 'a': 5, 'b': 7 }, 7);
 
-// caterpillar.pushFront();
-// caterpillar.pushBack(null);
-// caterpillar.pushFront(catepillar.pushBack(5)); ///? TYPES
-
-
+// CatP.pushFront();
+// CatP.pushBack(null);
+// CatP.pushFront(catepillar.pushBack(5)); ///? TYPES
 
 
-caterpillar.print();
+
+
+CatP.print();
 
 /// nanannaa
