@@ -2,7 +2,9 @@
 // T<number|string|boolean|null|undefined>
 // T[]
 
-//generic type
+// generic type
+
+// for each by caterpillar. for each.!!!
 
 type MultyValue = number | string | boolean | null | undefined | object | MultyValue[];
 type SegmentType = {
@@ -84,19 +86,21 @@ class Caterpillar {
             let counter: number = 0;
             while (element && counter < id - 1) {
                 if (!element.next) {
-                    console.log('inserted', n, 'as a tail');
-                    return this.pushBack(n);
-                }
-                element = element.next;
-                if (!element) {
                     throw new Error('please, use existing id');
                 }
+                element = element.next;
                 counter += 1;
             }
-
-            const newElement = new Segment(n, element.next)
-            element.next = newElement;
-            return console.log('inserted', n, 'to the id', id);
+            if (this.tail===element) {
+                console.log('inserted', n, 'as a tail');
+                return this.pushBack(n);
+            }
+            else{
+                const newElement = new Segment(n, element.next)
+                element.next = newElement;
+                return console.log('inserted', n, 'to the id', id);
+            }
+            
 
 
         } catch (error: any) {
@@ -116,15 +120,24 @@ class Caterpillar {
         };
     };
 
+    *iterate() {
+        //for element of caterpillar {make this} generator on the basis of our list
+        // array have Array.values
+        // object have Object.entries
+        // yield
+        let element = this.head;
+        while (element) {
+            yield element;
+            if (element.next = undefined) {
+                break;
+            };
+            element = element.next;
+        }
+    }
+
+    iter = this.iterate();
+
 };
-
-// without length
-
-
-
-
-
-
 
 
 let CatP = new Caterpillar();
@@ -136,18 +149,16 @@ CatP.pushFront(3);
 CatP.pushFront(2);
 CatP.pushFront(1);
 CatP.insert(0, 3);
-CatP.insert(0, 30);
-// CatP.insert(5);
-// CatP.insert([5, 7], 6);
-// CatP.insert({ 'a': 5, 'b': 7 }, 7);
-
-// CatP.pushFront();
-// CatP.pushBack(null);
-// CatP.pushFront(catepillar.pushBack(5)); ///? TYPES
+CatP.insert(7, 30);  
 
 
+for (let el of CatP.iter){
+    console.log(el.value);
+}
 
+// CatP.iterate;
 
-CatP.print();
+// CatP.print();
+
 
 /// nanannaa
