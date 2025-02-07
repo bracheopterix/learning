@@ -1,39 +1,23 @@
-// TYPES of input
-// T<number|string|boolean|null|undefined>
-// T[]
+// npx ts-node src/caterpillarLinkedList/caterpillar.ts   
 
-// generic type
-
-// for each by caterpillar. for each.!!!
-
-type MultyValue = number | string | boolean | null | undefined | object | MultyValue[];
-type SegmentType = {
-    value: MultyValue,
-    next: SegmentType | undefined, // and maybe here too undefined
+type SegmentType<T> = {
+    value: T,
+    next: SegmentType<T> | undefined,
 };
 
-class Segment {
-    value: MultyValue;
-    next: SegmentType | undefined;   // here undefined hneeds to be an option
-    constructor(value: MultyValue, next: SegmentType | undefined) {
-        this.value = value;
-        this.next = next;
-    }
-}
-
-class Caterpillar {
+class Caterpillar<T> {
     // I am a linked list!
-    head?: SegmentType;
-    tail?: SegmentType;
+    head?: SegmentType<T>;
+    tail?: SegmentType<T>;
 
-    pushFront(n: MultyValue) {
+    pushFront(value: T) {
 
         if (!this.head) {
             // no head? - this is new head!
-            this.head = new Segment(n, undefined);
+            this.head = {value, next: undefined};
         }
         else {
-            const newElement = new Segment(n, this.head);
+            const newElement = {value, next: this.head};
             if (!this.head.next) {
                 // no tail and now two segments? old head is noe new tail!
                 this.tail = this.head;
@@ -43,19 +27,19 @@ class Caterpillar {
             newElement.next = this.head;
             this.head = newElement;
         }
-        return console.log('added', n, 'to the head');
+        return console.log('added', value, 'to the head');
     };
 
-    pushBack(n: MultyValue) {
+    pushBack(value: T) {
 
         if (!this.head) {
             // no head? - this is new head!
-            this.head = new Segment(n, undefined);
+            this.head = { value, next: undefined };
             this.tail = this.head;
         }
         else {
             // else - create new butt-segment,make it next to thetail and replant a tail pointer
-            const newElement = new Segment(n, undefined);
+            const newElement = { value, next: undefined };
             if (this.tail) {
                 this.tail.next = newElement;
                 this.tail = newElement;
@@ -64,27 +48,26 @@ class Caterpillar {
             }
 
         }
-        return console.log('added', n, 'to the tail');
+        return console.log('added', value, 'to the tail');
 
     };
 
-
-    insert(n: MultyValue, id: number) {  // insert 0 = pushFront, insert id=length =pushBack
+    insert(value: T, index: number) { 
         try {
             if (!this.head) {
                 throw new Error('caterpillar is empty');
             }
-            if (!id) {
+            if (!index) {
                 throw new Error('please, .insert(value,id)')
             }
-            if (id === 0) {
-                console.log('inserted', n, 'as a head');
-                return this.pushFront(n);
+            if (index === 0) {
+                console.log('inserted', value, 'as a head');
+                return this.pushFront(value);
             }
 
             let element = this.head;
             let counter: number = 0;
-            while (element && counter < id - 1) {
+            while (element && counter < index - 1) {
                 if (!element.next) {
                     throw new Error('please, use existing id');
                 }
@@ -92,73 +75,58 @@ class Caterpillar {
                 counter += 1;
             }
             if (this.tail===element) {
-                console.log('inserted', n, 'as a tail');
-                return this.pushBack(n);
+                console.log('inserted', value, 'as a tail');
+                return this.pushBack(value);
             }
             else{
-                const newElement = new Segment(n, element.next)
+                const newElement = { value, next: element.next };
                 element.next = newElement;
-                return console.log('inserted', n, 'to the id', id);
+                return console.log('inserted', value, 'to the id', index);
             }
             
 
 
         } catch (error: any) {
-            console.log('canselled insert', n, id, '-', error.message);
+            console.log('canselled insert', value, index, '-', error.message);
         }
     }
 
 
     print() {
-        console.log('caterpillar:');
-        let element = this.head;
-        let counter: number = 0;
-        while (element) {
-            console.log(element.value);
-            element = element.next;
-            counter += 1;
-        };
+        for (let el of catP.iterate()){
+            console.log(el);
+        }
     };
 
     *iterate() {
-        //for element of caterpillar {make this} generator on the basis of our list
-        // array have Array.values
-        // object have Object.entries
-        // yield
+        //allows iterate as for (let el of this.iterate());
         let element = this.head;
         while (element) {
-            yield element;
-            if (element.next = undefined) {
+            yield element.value;
+            if (element.next == null) {
                 break;
             };
             element = element.next;
         }
     }
-
-    iter = this.iterate();
-
 };
 
 
-let CatP = new Caterpillar();
-CatP.pushBack(5);
-CatP.pushBack(6);
-CatP.pushBack(7);
-CatP.pushFront(4);
-CatP.pushFront(3);
-CatP.pushFront(2);
-CatP.pushFront(1);
-CatP.insert(0, 3);
-CatP.insert(7, 30);  
+const catP = new Caterpillar<number>();
+catP.pushBack(5);
+catP.pushBack(6);
+catP.pushBack(7);
+catP.pushFront(4);
+catP.pushFront(3);
+catP.pushFront(2);
+catP.pushFront(1);
+catP.insert(0, 3);
+catP.insert(7, 30);  
 
 
-for (let el of CatP.iter){
-    console.log(el.value);
-}
-
-// CatP.iterate;
-
-// CatP.print();
+console.log([...catP.iterate().map(x => x*x)])  // cool A+ thing
 
 
-/// nanannaa
+// for (let el of catP.iterate()){
+//     console.log(el.value * 2);
+// }
