@@ -1,52 +1,61 @@
 //npx ts-node input-output.ts            
 
-type T = null | boolean | number;
+type Typ = null | boolean | number | Typ[] | { [key: string]: Typ };  /// !! arrays
 
-let data:T = false;
+function foo(data: Typ,): Typ {
+    switch (typeof data) {
+        case 'object':
+            if (data === null) {
+                return -1;
+            }
+            else {
+                if (Array.isArray(data)) {
+                    console.log('arr');
+                    const result: Typ[] = [];
+                    for (let el of data) {
+                        result.push(foo(el));
+                    }
+                    console.log('arr', result);
+                    return result;
+                }
+                else {
+                    console.log('obj');
+                    const obj: { [key: string]: Typ } = {};
+                    for (let key in data) {
+                        let newKey: string = key.toString();
+                        obj[newKey] = foo(data[key]);
+                    }
+                    return obj;
+                }
 
-const type = typeof data;
-let result:T = false;
-switch (type) {
-    case 'object':
-        result = -1;
-        break;
-    case 'boolean':
-        if(data){
-            result = -5;
-        }
-        else{
-            result = -10;
-        }
-        break;
-    case 'number':
-        result = Math
-
-
-
-        break;
+            }
+        case 'boolean':
+            if (data) {
+                return -5;
+            }
+            else {
+                return -10;
+            }
+            break;
+        case 'number':
+            if (data == 0) {
+                return 1;
+            }
+            else {
+                const el = foo(data - 1);
+                if (typeof el === 'number') {
+                    return data * el;
+                }
+                else {
+                    throw new Error('error in returning number in number case');
+                }
+            }
+        default:
+            return false;
+    }
 }
-console.log(result);
+//
 
-// function input (data:T):T {
-//     const type = typeof data;
-//     let result:T = false;
-//     switch (type) {
-//         case 'object':
-//             result = -1;
-//             break;
-//         case 'boolean':
-//             if(type){
-//                 result = -5;
-//             }
-//             else{
-//                 result = -10;
-//             }
-//             break;
-//         case 'number':
-//             result = -100;
-//             break;
-//     }
-//     return result;
-// }
 
-// console.log(input(3));
+
+console.log(foo({"a":1,"b": 2,"6": 3}));
