@@ -12,151 +12,184 @@
 //* postorder    4526731
 //* level order  1234567 )
 
-type Branch<T> = {
-    value: number,
-    left?: Branch<T>,
-    right?: Branch<T>,
-    // parent: Branch<T> | undefined,
-}
+class Tree<T> {
+    value: T;
+    left?: Tree<T>;
+    right?: Tree<T>;
 
-function printInOrderTreeImpl<T>(element: Branch<T>, depth: number) {
-    if (element.left) {
-        printInOrderTreeImpl(element.left, depth + 1);
-    }
-    console.log(' '.repeat(depth), element.value);
-    if (element.right) {
-        printInOrderTreeImpl(element.right, depth + 1);
-    }
-}
+    compareFn: (left: T, right: T) => "<" | ">" | "=";
 
-function printInOrderTree<T>(element: Branch<T>) {
-    printInOrderTreeImpl(element, 0);
-}
-
-function insert(value: number, tree: Branch<number>): boolean {
-    if(value<tree.value){
-        if(!tree.left){
-            tree.left = {value:value};
-            return true;
-        }
-        else{
-            return insert(value,tree.left);
-        }
+    constructor(value: T, compareFn: (left: T, right: T) => "<" | ">" | "=", left?: Tree<T>, right?: Tree<T>) {
+        this.value = value;
+        this.compareFn = compareFn;
+        this.left = left;
+        this.right = right;
     }
-    if(value>tree.value){
-        if(!tree.right){
-            tree.right = {value:value};
-            return true;
+
+    private printInOrderTreeImpl(depth: number) {
+        if (this.left) {
+            this.left.printInOrderTreeImpl(depth + 1);
         }
-        else{
-            return insert(value,tree.right);
+        console.log(' '.repeat(depth), this.value);
+        if (this.right) {
+            this.right.printInOrderTreeImpl(depth + 1);
         }
     }
 
-    // insert by the rule 
-    return false;
+    printInOrderTree() {
+        this.printInOrderTreeImpl(0);
+    }
+
+    /// NEW
+    private printPreOrderTreeImpl(depth: number) {   //what if we don't have left
+        console.log(' '.repeat(depth), this.value);
+        if (this.left) {
+            this.left.printPreOrderTreeImpl(depth + 1);
+        }
+        if (this.right) {
+            this.right.printPreOrderTreeImpl(depth + 1);
+        }
+    }
+
+    printPreOrderTree() {
+        this.printPreOrderTreeImpl(0);
+    }
+
+    ///NEW
+
+    private printPostOrderTreeImpl(depth: number) {
+        if (this.left) {
+            this.left.printPostOrderTreeImpl(depth + 1);
+        }
+        if (this.right) {
+            this.right.printPostOrderTreeImpl(depth + 1);
+        }
+        console.log(' '.repeat(depth), this.value);
+    }
+
+    printPostOrderTree() {
+        this.printPostOrderTreeImpl(0);
+    }
+
+
+
+    ///
+    insert(value: T): boolean {
+        const compareResult = this.compareFn(value, this.value);
+        if (compareResult === "<") {
+            if (!this.left) {
+                this.left = new Tree(value, this.compareFn);
+                return true;
+            }
+            else {
+                return this.left.insert(value);
+            }
+        }
+        if (compareResult === ">") {
+            if (!this.right) {
+                this.right = new Tree(value, this.compareFn);
+                return true;
+            }
+            else {
+                return this.right.insert(value);
+            }
+        }
+
+        // insert by the rule 
+        return false;
+    }
+
+
+    *iterPreOrder(): Generator<T, void, unknown> {
+        yield this.value;
+        if (this.left) {
+            const leftItems = this.left.iterPreOrder();
+            for (let x of leftItems) {
+                yield x;
+            }
+        }
+        if (this.right) {
+            const rightItems = this.right.iterPreOrder();
+            for (let x of rightItems) {
+                yield x;
+            }
+        }
+    }
+
+
+    /////THIS TWO
+    // Сделать второй constructor,который принимает (value, left, right)
+
+    // нужна мапа, а значит новое дерево
+    // каждый элемент - такой же самый, но с модифицированным значением
+
+
+
+    map<R>(fn: (arg: T) => R, compareFn: (left: R, right: R) => "<" | ">" | "="): Tree<R> {   /// O(n)
+        if (!this) {
+            throw null;
+        }
+        else {
+
+            const newTree = new Tree(fn(this.value), compareFn, this.left?.map(fn, compareFn), this.right?.map(fn, compareFn));
+            return newTree;
+
+        }
+    };
+    // created functor interface for out tree
+    // ^ class Functor f where
+    // map :: (a -> b) -> f<a> -> f<b>
+
+
+
+
+
+
+    // collector(tree: Tree<T>, newTree: Tree<R>, fn: (arg: T) => R) {
+    //     newTree.insert(fn(tree.value))
+    //     if (this.left) {
+    //         this.collector(tree.left, newTree, fn)
+    //     }
+    //     if (this.right) {
+    //         this.collector(tree.right, newTree, fn);
+    //     }
+    // }
+
 }
 
-//     4
-//    3  5
-//   1    6
+const tree = new Tree(25, (a, b) => a < b ? "<" : a > b ? ">" : "=");
+tree.insert(15);
+tree.insert(50);
+tree.insert(10);
+tree.insert(22);
+tree.insert(35);
+tree.insert(70);
+tree.insert(4);
+tree.insert(12);
+tree.insert(18);
+tree.insert(24);
+tree.insert(31);
+tree.insert(44);
+tree.insert(66);
+tree.insert(90);
 
-// class Beenary<T> {
-//     root?: Branch<T> | undefined;
-
-//     add(value: number, node: Branch<T>) {
-//         if (!this.root) {
-//             // no root in the tree? create it from value and finish on this.
-//             // this.root = { value: value, left: undefined, right: undefined, parent: undefined };
-//             return `added ${value} as a root`;
-//         }
-//         else {
-//             if (!node) {
-//                 // if node was't defined, I believe this is the first usage of function
-//                 // so we statred recursion from the root.
-//                 let node: Branch<T> | undefined = this.root;
-//             }
-
-//             while (true) {
-//                 if (value = node.value) {
-//                     return `we already have this value in the tree`;
-//                 }
-//                 if (value < node.value) {
-//                     if (!node.left) {
-//                         // added left
-//                         let newNode = { value: value, left: undefined, right: undefined, parent: node }
-//                         node.left = newNode;
-//                         return `added ${value} as a left child of ${node.value}`;
-//                     }
-//                     else {
-//                         // go on the next cycle
-//                         node = node.left;
-//                         console.log(`checking ${value} against left node`);
-//                         this.add(value, node);
-//                     }
-//                 }
-//                 if (value > node.value) {
-//                     if (!node.right) {
-//                         //added right
-//                         let newNode = { value: value, left: undefined, right: undefined, parent: node }
-//                         node.right = newNode;
-//                         return `added ${value} as a right child of ${node.value}`;
-//                     }
-//                     else {
-//                         // go on the next cycle
-//                         node = node.right;
-//                         console.log(`checking ${value} against right node`);
-//                         this.add(value, node);
-//                     }
-//                 }
-//             }
-//         }
-//     }
+// console.log('inorder');
+// tree.printInOrderTree();
+// console.log('preorder');
+// tree.printPreOrderTree();
+// console.log('postorder');
+// tree.printPostOrderTree();
 
 
-//     print() {
-//         if (!this.root) {
-//             return "there are no elements in the tree";
-//         }
-//         let element = this.root;
-//         let node: Branch<T>;
-
-//         if (!element.left && !element.right) {
-//             console.log(element);
-//         }
-//         else {
-//             if (element.left) {
-//                 console.log(element.left);
-//                 // element.print();
-//             }
-//             console.log(element);
-//             if (element.right) {
-//                 console.log(element.right);
-//             }
-//         }
-//     }
+// for (let el of tree.iterPreOrder()) {
+//     console.log(el);
 // }
 
-const tree: Branch<number> = {
-    value: 1,
-    left: {
-        value: 2,
-        left: {
-            value: 4
-        }
-    },
-    right: {
-        value: 3,
-        left: {
-            value: 6
-        },
-        right: {
-            value: 7
-        }
-    }
-}
+tree.printInOrderTree();
+console.log("tree2");
+const tree2 = tree.map(x => x * x, tree.compareFn);
+tree2.printInOrderTree();
 
-// insert(4,tree);
-printInOrderTree(tree);
-
-// insert(10)
+// for (let el of tree2.iterPreOrder()) {
+//     console.log(el); // 625 225 100 16 ...
+// }
